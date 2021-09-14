@@ -16,7 +16,11 @@
 
         <style>
             body {
-                font-family: 'Nunito', sans-serif;
+                background: white;
+    color: #222222;
+    max-width: 600px;
+    margin: auto;
+    font-family: sans-serif;
             }
         </style>
     </head>
