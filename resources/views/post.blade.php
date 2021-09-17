@@ -1,11 +1,11 @@
+@extends('layouts.layout')
 
-
-
-<body>
+@section('content')
     <article>
   <h1>  <?= $post->title; ?> </h1>
     <div>
         <?= $post->body;?>
 </div>
     </article>
-</body>
+
+@endsection
