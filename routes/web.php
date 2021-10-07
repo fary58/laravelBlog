@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\User;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +20,28 @@ use App\Models\Post;
 
 Route::get('/', function () {
     return view('posts' ,[
-        'posts' => Post::all()
+        'posts'=> Post::take(1)->get()
+        // Post::all() for all
+        // 'posts' => Post::with('category','author')->get()         <== without Protected
   ]);
 });
 
 
-Route::get('/posts/{any}', function ($slug) {
+Route::get('/posts/{any}', function (Post $any) {
     return view('post' ,[
-          'post' => Post::find($slug)
+          'post' => $any
+    ]);
+});
+
+Route::get('/categories/{category}', function (Category $category) {
+    return view('posts' ,[
+          'posts' => $category->posts->load(['author','category',])
+    ]);
+});
+
+
+Route::get('/authors/{author:name}', function (User $author) {
+    return view('posts' ,[
+        //   'posts' => $author->posts->load(['author','category',]) used without protected in posts model
     ]);
 });
