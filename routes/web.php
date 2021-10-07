@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
+
 
 
 /*
@@ -18,7 +20,9 @@ use App\Models\Category;
 
 Route::get('/', function () {
     return view('posts' ,[
-        'posts' => Post::with('category')->get()
+        'posts'=> Post::take(1)->get()
+        // Post::all() for all
+        // 'posts' => Post::with('category','author')->get()         <== without Protected
   ]);
 });
 
@@ -31,6 +35,13 @@ Route::get('/posts/{any}', function (Post $any) {
 
 Route::get('/categories/{category}', function (Category $category) {
     return view('posts' ,[
-          'posts' => $category->posts
+          'posts' => $category->posts->load(['author','category',])
+    ]);
+});
+
+
+Route::get('/authors/{author:name}', function (User $author) {
+    return view('posts' ,[
+        //   'posts' => $author->posts->load(['author','category',]) used without protected in posts model
     ]);
 });
