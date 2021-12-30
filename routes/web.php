@@ -20,8 +20,8 @@ use App\Models\User;
 
 Route::get('/', function () {
     return view('posts' ,[
-        'posts'=> Post::take(1)->get()
-        // Post::all() for all
+        // 'posts'=> Post::take(1)->get()
+        'posts' => Post::all() //for all
         // 'posts' => Post::with('category','author')->get()         <== without Protected
   ]);
 });
@@ -39,9 +39,9 @@ Route::get('/categories/{category}', function (Category $category) {
     ]);
 });
 
-
 Route::get('/authors/{author:name}', function (User $author) {
+    // print_r($author); exit;
     return view('posts' ,[
-        //   'posts' => $author->posts->load(['author','category',]) used without protected in posts model
+          'posts' => $author->posts->load(['author','category',]) // used without protected in posts model
     ]);
 });
