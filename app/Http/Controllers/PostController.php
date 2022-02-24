@@ -11,7 +11,7 @@ class PostController extends Controller
 //        dd(request(['category']));
         return view('posts.index' ,[
         // 'posts'=> Post::take(1)->get()
-            'posts' =>  Post::latest()->filter(request(['search','category']))->get(), //for all
+            'posts' =>  Post::latest()->filter(request(['search','category','author']))->get(), //for all
             // 'posts' => Post::with('category','author')->get()         <== without Protected
         ]);
     }

@@ -38,10 +38,11 @@ class Post extends Model
 
         $query->when($filters['category'] ?? false, function ($query,$category) {
 
-            $query->whereHas('category',function ($query) use ($category) {
-                $query->where('slug',$category);
+            $query->whereHas('category', function ($query) use ($category) {
+                $query->where('slug', $category);
 
             });
+        });
 //
 //            $query->whereExists(function ($query) use ($category) {
 //                $query->from('categories')
@@ -49,13 +50,22 @@ class Post extends Model
 //                    ->where('categories.slug',$category);
 //            });
 
-});
+            $query->when($filters['author'] ?? false, function ($query,$author) {
+
+                $query->whereHas('author',function ($query) use ($author) {
+                    $query->where('name',$author);
+
+                });
 
 
 
 
 
-    }
+
+    });
+
+
+}
 
 
 
