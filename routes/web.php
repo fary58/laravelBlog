@@ -21,21 +21,21 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/',[PostController::class, 'index'])->name('home');
-Route::get('/',[PostController::class, 'show'])->name('show');
+Route::get('posts/{post:slug}',[PostController::class, 'show'])->name('show');
+Route::get('/categories/{category:slug}',[PostController::class, 'show'])->name('show');
 
 
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts' ,[
-          'posts' => $category->posts->load(['author','category',]),
-        'categories' => Category::all(),
-        'currentCategory' => $category,
-    ]);
-});
+//Route::get('/categories/{category:slug}', function (Category $category) {
+//    return view('posts' ,[
+//          'posts' => $category->posts->load(['author','category',]),
+//        'categories' => Category::all(),
+//        'currentCategory' => $category,
+//    ]);
+//});
 
-Route::get('/authors/{author:name}', function (User $author) {
-    // print_r($author); exit;
-    return view('posts' ,[
-          'posts' => $author->posts->load(['author','category',]), // used without protected in posts model
-        'categories' => Category::all()
-    ]);
-});
+//Route::get('/authors/{author:name}', function (User $author) {
+//    // print_r($author); exit;
+//    return view('posts' ,[
+//          'posts' => $author->posts->load(['author','category',]), // used without protected in posts model
+//    ]);
+//});
